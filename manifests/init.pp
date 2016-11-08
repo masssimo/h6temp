@@ -106,7 +106,7 @@ class koticonf {
 
       package { ssh:
 
-      require =>Exec[‘apt-update’]
+      require =>Exec[‘apt-update’],
 
       ensure => installed,
 
