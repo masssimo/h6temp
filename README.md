@@ -6,11 +6,13 @@ Viidennessä harjoituksessä oli tarkoituksena tehdä moduuli git-varastoon ja r
 
 Päivitin paketinhallinnan ja asetin näppäimistön layoutin suomalaiseksi:
 > $ setxkbmap fi
+
 > $ sudo apt-get update
 
 Tein käyttäjän 'xubuntu' kotihakemistoon moduulin vaatimat alihakemistot. Sitten tein sudoeditillä alihakemistoon */modules/* tiedoston *init.pp*, jonne kopioin edellisen [harjoitukseni](https://mnuutinen.wordpress.com/2016/11/05/palvelinten-hallinta-harjoitus-4/) moduulin koodin. Asensin vielä SSH:n, jotta saisin moduulin vaatiman templaten kopioitua oikeaan paikkaan.
 
 > $ sudo apt-get -y install ssh
+
 > $ sudo cp /etc/ssh/sshd_config /home/xubuntu/koticonf/templates/
 
 
