@@ -61,10 +61,13 @@ error: update_ref failed for ref 'refs/remotes/origin/master': cannot lock ref '
 Ajoin vielä seuraavat komennot:
 
 > $ sudo git remote -v
+
 origin	https://github.com/masssimo/koticonf.git (fetch)
+
 origin	https://github.com/masssimo/koticonf.git (push)
 
 > $ git push origin master
+
 error: update_ref failed for ref 'refs/remotes/origin/master': cannot lock ref 'refs/remotes/origin/master': unable to create directory for .git/refs/remotes/origin/master
 Everything up-to-date
 
