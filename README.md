@@ -10,7 +10,7 @@ Päivitin paketinhallinnan ja asetin näppäimistön layoutin suomalaiseksi:
 
 > $ sudo apt-get update
 
-Tein käyttäjän 'xubuntu' kotihakemistoon hakemiston *koticonf* ja sinne moduulin vaatimat alihakemistot *manifests* ja *templates*. Sitten tein sudoeditillä alihakemistoon */modules/* tiedoston *init.pp*, jonne kopioin edellisen [harjoitukseni](https://mnuutinen.wordpress.com/2016/11/05/palvelinten-hallinta-harjoitus-4/) moduulin koodin. Asensin vielä SSH:n, jotta saisin moduulin vaatiman templaten kopioitua oikeaan paikkaan.
+Tein käyttäjän 'xubuntu' kotihakemistoon hakemiston *koticonf* ja sinne moduulin vaatimat alihakemistot *manifests* ja *templates*. Sitten tein sudoeditillä alihakemistoon */manifests/* tiedoston *init.pp*, jonne kopioin edellisen [harjoitukseni](https://mnuutinen.wordpress.com/2016/11/05/palvelinten-hallinta-harjoitus-4/) moduulin koodin. Asensin vielä SSH:n, jotta saisin moduulin vaatiman templaten kopioitua oikeaan paikkaan.
 
 > $ sudo apt-get -y install ssh
 
