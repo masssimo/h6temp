@@ -5,6 +5,7 @@ Viidennessä harjoituksessä oli tarkoituksena tehdä moduuli git-varastoon ja r
 ## Alkutoimet
 
 Päivitin paketinhallinnan ja asetin näppäimistön layoutin suomalaiseksi:
+
 > $ setxkbmap fi
 
 > $ sudo apt-get update
@@ -71,12 +72,59 @@ origin	https://github.com/masssimo/koticonf.git (push)
 error: update_ref failed for ref 'refs/remotes/origin/master': cannot lock ref 'refs/remotes/origin/master': unable to create directory for .git/refs/remotes/origin/master
 Everything up-to-date
 
-Myöhemmin päättelin, että virheilmoitukset johtuivat mahdollisesti siitä, että unohdin push-komennon edestä sudon. Totesin kuitenkin webin kautta, että tiedostot olivat siirtyneet GitHubiin. Tässä vaiheessa huomasin, että README-tiedoston voi tehdä GitHubissa myös webin kautta ja aloitin raportin kirjoittamisen Firefoxilla.
+Myöhemmin päättelin, että virheilmoitukset johtuivat mahdollisesti siitä, että unohdin push-komennon edestä sudon. Totesin kuitenkin webin kautta, että tiedostot olivat siirtyneet GitHubiin. Tässä vaiheessa huomasin, että README-tiedoston voi tehdä GitHubissa myös webin kautta ja aloitin raportin kirjoittamisen Firefoxilla. 
 
+## Moduulin kloonaaminen
+
+Raportoituani tehtävän tähän asti ajattelin vielä kokeilla moduulin kloonaamista vasta bootatulle live-USB:lle ja boottasin läppärini. Sitten asetin näppäimistön layoutin suomalaiseksi ja päivitin paketinhallinnan kuten harjoituksen alkutoimet-osiossa. Asensin Puppetin ja gitin, menin hakemistoon */etc/puppet/modules/* ja kloonasin moduulin sinne seuraavalla komennolla:
+
+> $ sudo git clone https://github.com/masssimo/koticonf.git
+
+Moduuli kloonautui ongelmitta:
+
+Cloning into 'koticonf'...
+remote: Counting objects: 30, done.
+remote: Compressing objects: 100% (27/27), done.
+remote: Total 30 (delta 6), reused 6 (delta 0), pack-reused 0
+Unpacking objects: 100% (30/30), done.
+Checking connectivity... done.
+
+Ajoin sen vielä komennolla:
+
+> $ sudo puppet apply -e 'class {koticonf:}'
+
+Aluksi moduuli ei toiminut, mutta paikallistin vian nopeasti puuttuvaan pilkkuun *init.pp*:ssä. Sen korjattuani moduuli toimi kuten edellisessä harjoituksessakin:
+
+Notice: Compiled catalog for xubuntu in environment production in 0.62 seconds
+Notice: /Stage[main]/Koticonf/Exec[apt-update]/returns: executed successfully
+Notice: /Stage[main]/Koticonf/Package[ssh]/ensure: ensure changed 'purged' to 'present'
+Error: /Stage[main]/Koticonf/Service[apache2]: Could not evaluate: Could not find init script or upstart conf file for 'apache2'
+Notice: /Stage[main]/Koticonf/File[/etc/ssh/sshd_config]/content: content changed '{md5}bd3a2b95f8b4b180eed707794ad81e4d' to '{md5}1bc010617abe9e7d76d261ec5db5b01b'
+Notice: /Stage[main]/Koticonf/Service[ssh]: Triggered 'refresh' from 1 events
+Notice: /Stage[main]/Koticonf/Package[pinta]/ensure: ensure changed 'purged' to 'present'
+Notice: /Stage[main]/Koticonf/Exec[xinput]/returns: executed successfully
+Notice: /Stage[main]/Koticonf/Exec[setxkbmap]/returns: executed successfully
+Notice: /Stage[main]/Koticonf/Package[apache2]/ensure: ensure changed 'purged' to 'present'
+Notice: /Stage[main]/Koticonf/Package[mysql-server]/ensure: ensure changed 'purged' to 'present'
+Notice: /Stage[main]/Koticonf/Package[php]/ensure: ensure changed 'purged' to 'present'
+Notice: /Stage[main]/Koticonf/Package[libapache2-mod-php]/ensure: ensure changed 'purged' to 'present'
+Notice: /Stage[main]/Koticonf/Package[mysql-client]/ensure: ensure changed 'purged' to 'present'
+Notice: /Stage[main]/Koticonf/Package[php-mysql]/ensure: ensure changed 'purged' to 'present'
+Notice: Finished catalog run in 228.04 seconds
+
+Kokeilin vielä, että Apachen oletussivu ilmestyi osoitteessa localhost. Tässä vaiheessa mentiin jo pikkutuntien puolelle enkä jaksanut alkaa testailemaan sen enempää, sillä moduulin toiminta oli testattu jo edellisessä harjoituksessa.
+
+## Lopuksi
+
+Harjoituksessa luotiin GitHubiin repository ja pushattiin sinne jo olemassa oleva Puppet-moduuli komentoriviä käyttäen. Sitten moduuli kloonattiin GitHubista vasta bootatulle live-USB:lle. Lisäksi harjoitus raportoitiin Markdownia käyttäen.
+
+## Lähteet
+
+https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
 https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/
 http://terokarvinen.com/2016/publish-your-project-with-github
 http://terokarvinen.com/2016/aikataulu-palvelinten-hallinta-ict4tn022-1-5-op-uusi-ops-loppusyksy-2016
-https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+
 
 
 
