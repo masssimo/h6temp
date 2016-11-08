@@ -121,8 +121,11 @@ Harjoituksessa luotiin GitHubiin repository ja pushattiin sinne jo olemassa olev
 ## Lähteet
 
 https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+
 https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/
+
 http://terokarvinen.com/2016/publish-your-project-with-github
+
 http://terokarvinen.com/2016/aikataulu-palvelinten-hallinta-ict4tn022-1-5-op-uusi-ops-loppusyksy-2016
 
 
