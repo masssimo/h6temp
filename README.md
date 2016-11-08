@@ -1,8 +1,8 @@
-## H5
+# H5
 
 Viidennessä harjoituksessä oli tarkoituksena tehdä moduuli git-varastoon ja raportoida harjoitus Markdownilla. Tein harjoituksen kotoani käsin Asus K56CM-läppärilläni. Boottasin läppärini USB-livetikulta, johon oli asennettu Xubuntu 16.04.1 LTS. Ajattelin hyödyntää edellisessä harjoituksessa tekemääni moduulia ja pushata sen GitHubiin.
 
-# Alkutoimet
+## Alkutoimet
 
 Päivitin paketinhallinnan ja asetin näppäimistön layoutin suomalaiseksi:
 > $ setxkbmap fi
@@ -14,12 +14,13 @@ Tein käyttäjän 'xubuntu' kotihakemistoon moduulin vaatimat alihakemistot. Sit
 > $ sudo cp /etc/ssh/sshd_config /home/xubuntu/koticonf/templates/
 
 Lopputulos näytti seuraavalta:
-
+`
 ├── koticonf
 │   ├── manifests
 │   │   └── init.pp
 │   └── templates
 │       └── sshd_config
+`
 
 
 
