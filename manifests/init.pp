@@ -1,133 +1,145 @@
 class koticonf {
 
-       exec { 'setxkbmap':
+       
+	exec { 'apt-update':
 
-       command => '/usr/bin/setxkbmap fi'
+       	command => '/usr/bin/apt-get update'
 
-       }
+       	}
 
-       exec { 'xinput':
+       	package { 'apache2':
 
-       command => '/usr/bin/xinput set-prop "ETPS/2 Elantech Touchpad" "Synaptics Finger" 10 10 255'
+       	require => Exec['apt-update'],
 
-       }
+       	ensure => installed,
 
-       exec { 'apt-update':
+       	allowcdrom => true,
 
-       command => '/usr/bin/apt-get update'
+       	}
 
-       }
+       	service { 'apache2':
 
-       package {'pinta':
+       	ensure => running,
 
-       require => Exec['apt-update'],
+       	}
 
-       ensure => installed,
+       	package { 'mysql-server':
 
-       allowcdrom => true,
+       	require => Package['apache2'],
 
-       }
+       	ensure => installed,
 
-       package { 'apache2':
+       	allowcdrom => true,
 
-       require => Exec['apt-update'],
+       	}
 
-       ensure => installed,
+       	package { 'mysql-client':
 
-       allowcdrom => true,
+       	require => Package['mysql-server'],
 
-       }
+       	ensure => installed,
 
-       service { 'apache2':
+       	allowcdrom => true,
 
-       ensure => running,
+       	}
 
-       }
+	service { 'mysql':
 
-       package { 'mysql-server':
+      	ensure => running,
 
-       require => Package['apache2'],
+      	provider => systemd,
 
-       ensure => installed,
+      	require => Package['mysql-server'],
 
-       allowcdrom => true,
+      	}
 
-       }
+      	package { 'php':
 
-       package { 'mysql-client':
+      	require => Package['mysql-server'],
 
-       require => Package['mysql-server'],
+      	ensure => installed,
 
-       ensure => installed,
+      	allowcdrom => true,
 
-       allowcdrom => true,
+      	}
 
-       }
+      	package { 'libapache2-mod-php':
 
-      service { 'mysql':
+      	require => Package['php'],
 
-      ensure => running,
+      	ensure => installed,
 
-      provider => systemd,
+      	allowcdrom => true,
 
-      require => Package['mysql-server'],
+      	}
 
-      }
+      	package { 'php-mysql':
 
-      package { 'php':
+      	require => Package['libapache2-mod-php'],
 
-      require => Package['mysql-server'],
+      	ensure => installed,
 
-      ensure => installed,
+      	allowcdrom => true,
 
-      allowcdrom => true,
+      	}
 
-      }
+      	package { 'ssh':
 
-      package { 'libapache2-mod-php':
+      	require => Exec['apt-update'],
 
-      require => Package['php'],
+      	ensure => installed,
 
-      ensure => installed,
+      	allowcdrom => true,
 
-      allowcdrom => true,
+      	}
 
-      }
+      	service { 'ssh':
 
-      package { 'php-mysql':
+      	ensure => 'running',
 
-      require => Package['libapache2-mod-php'],
+      	provider => 'systemd',
 
-      ensure => installed,
+      	}     
 
-      allowcdrom => true,
+      	file { '/etc/ssh/sshd_config':
 
-      }
+      	content => template('koticonf/sshd_config'),
 
-      package { ssh:
+      	notify => Service['ssh'],
 
-      require =>Exec[‘apt-update’],
+      	}
+	
+	host { 'redtapeforbots.com':
+		
+	ip => '127.0.0.1',
+		
+	host_aliases => 'RedTapeForBots.com',
+	
+	}
+	
+	file { '/var/www/html/index.html':
+		
+	content => template('koticonf/index.html'),
+	
+	require => Package['apache2'],
 
-      ensure => installed,
+	}	
 
-      allowcdrom => true,
+	file { '/etc/ufw/user.rules':
+	
+	content => template('koticonf/user.rules'),	
+	
+	}
 
-      }
+	file { '/etc/ufw/user6.rules':
 
-      service { "ssh":
+	content => template('koticonf/user6.rules'),
 
-      ensure => "running",
+	}
 
-      provider => "systemd",
+	exec { 'ufw enable':
 
-      }     
+	path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
 
-      file { '/etc/ssh/sshd_config':
-
-      content => template("koticonf/sshd_config"),
-
-      notify => Service["ssh"],
-
-      }
-
+	}
 }
